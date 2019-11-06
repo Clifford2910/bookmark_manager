@@ -8,7 +8,6 @@ class Bookmark
     else
       con = PG.connect(dbname: 'bookmark_manager')
     end
-
     rs = con.exec("SELECT * FROM bookmarks")
     rs.map do |row|
       row['url']
@@ -19,6 +18,4 @@ class Bookmark
     # "http://www.google.com",
     # "http://www.destroyallsoftware.com"
     # ]
-
-
 end
