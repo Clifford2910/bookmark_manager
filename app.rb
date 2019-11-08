@@ -1,18 +1,27 @@
 require 'sinatra/base'
-require 'pg'
 require './lib/bookmark'
+require 'pg'
 
 class Bookmark_Manager < Sinatra::Base
   enable :sessions
   set :session_secret, 'super secret'
 
   get '/' do
-    erb :index
+    "Bookmark Manager"
   end
 
-  get '/bookmarks' do    
+  get '/bookmarks' do
     @bookmarks = Bookmark.all
-    erb :bookmarks
+    erb :'bookmarks/index'
+  end
+
+  get '/bookmarks/new' do
+    erb :'bookmarks/new'
+  end
+
+  post '/bookmarks/new' do
+    Bookmark.create(url: params['url'], title: params['title'])
+    redirect '/bookmarks'
   end
 
   run! if app_file == $0
